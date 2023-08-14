@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea Cuadros</title>
+    <style>
+        canvas{
+            background-color: white;
+        }
+
+        body{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="700" height="500" id="myCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = "#f294E6";
+        ctx.beginPath();
+        ctx.moveTo(460, 180);
+        ctx.lineTo(600, 300);
+        ctx.lineTo(500, 280);
+        ctx.lineTo(460, 180);
+        ctx.fill();
+
+        ctx.strokeStyle = "black"
+        ctx.beginPath();
+        ctx.moveTo(400, 100);
+        ctx.lineTo(550, 250);
+        ctx.stroke();
+   
+    </script>
+</body>
+</html>
