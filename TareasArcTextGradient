@@ -55,6 +55,12 @@
         ctx.fillStyle = grdR;
         ctx.fillRect(250, 300, 150, 100);
 
+        var img = new Image();
+        img.src="cheems.png";
+        img.onload = function(){
+            ctx.drawImage(img, 300, 90, 200, 200);
+        }
+
     </script>
 </body>
 </html>
