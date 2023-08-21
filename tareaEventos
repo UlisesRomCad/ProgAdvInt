@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+
+        canvas{
+            background-color: darkgray;
+        }
+    </style>
+</head>
+<body>
+        <canvas width="500" height="500" id="myCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        
+        canvas.addEventListener("mouseover",(event) =>{
+            console.log("Mouseover");
+        })
+
+        canvas.addEventListener("mouseout",(event) =>{
+            console.log("Mouseout");
+        })
+
+        canvas.addEventListener("mousemove",(event) =>{
+            console.log("Mousemove");
+        })
+        
+        canvas.addEventListener("mousedown",(e) =>{
+            console.log("mousedown");
+            console.log(e);
+            ctx.beginPath();
+            ctx.arc(e.layerX ,e.layerY ,50 ,0 ,2*Math.PI);
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+            ctx.fill();
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+            ctx.closePath();
+        })
+        
+    </script>    
+</body>
+</html>
