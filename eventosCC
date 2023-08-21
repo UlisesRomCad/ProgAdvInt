@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+
+        canvas{
+            background-color: darkgray;
+        }
+    </style>
+</head>
+<body>
+        <canvas width="500" height="500" id="myCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        
+        /*
+        canvas.addEventListener("mouseover",(event) =>{
+            console.log("Mouseover");
+        })
+
+        canvas.addEventListener("mouseout",(event) =>{
+            console.log("Mouseout");
+        })
+
+        canvas.addEventListener("mousemove",(event) =>{
+            console.log("Mousemove");
+        })
+        */
+
+        function aleatorio(inferior,superior){
+        numPosibilidades = superior - inferior
+        aleat = Math.random() * numPosibilidades
+        aleat = Math.floor(aleat)
+        return parseInt(inferior) + aleat
+        }
+        function colorAleatorio(){
+        return "rgb(" + aleatorio(0,255) + "," + aleatorio(0,255) + "," + aleatorio(0,255) + "," +0.5 + ")";
+        }
+
+        var colorC;
+        var figura =1;
+
+        canvas.addEventListener("mouseover",(event) =>{
+            colorC = colorAleatorio();
+            figura = 1 - figura;
+        })
+
+        canvas.addEventListener("mousedown",(e) =>{
+            console.log("mousedown");
+            console.log(e);
+            if(figura == 1){
+            ctx.beginPath();
+            ctx.arc(e.layerX ,e.layerY ,50 ,0 ,2*Math.PI);
+            ctx.fillStyle = colorC;
+            ctx.fill();
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+            ctx.closePath();
+            } else if(figura ==0){
+                ctx.beginPath();
+                ctx.strokeStyle = "black";
+                ctx.strokeRect(e.layerX -50, e.layerY-50, 100, 100);
+                ctx.fillStyle = colorC;
+                ctx.fillRect(e.layerX -50, e.layerY-50, 100, 100);
+                ctx.closePath();
+            }
+
+        })
+        
+    </script>    
+</body>
+</html>
