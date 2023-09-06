@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    canvas{
+        background-color: lightskyblue;
+    }
+
+    body{
+        background-color: black;
+    }
+</style>
+<body>
+    <canvas width="1280" height="700" id="myCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+
+        ctx.lineWidth = 7;
+        ctx.fillStyle = "#eb8c6d";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(60, 640, 1220, 60);
+        ctx.fillRect(60, 640, 1220, 60);
+
+        ctx.fillStyle = "#ffc2bb";
+        ctx.strokeRect(60, 620, 1220, 20);
+        ctx.fillRect(60, 620, 1220, 20);
+
+        ctx.lineWidth = 5;
+        ctx.fillStyle = "#84bfff";
+        ctx.fillRect(515, 215, 240, 400);
+        ctx.strokeRect(515, 215, 240, 400);
+
+        ctx.fillStyle = "#fdc5b5";
+        ctx.fillRect(355, 375, 240, 240);
+        ctx.strokeRect(355, 375, 240, 240);
+
+        ctx.fillStyle = "#51d96a";
+        ctx.fillRect(1145, 375, 240, 240);
+        ctx.strokeRect(1145, 375, 240, 240);
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(595, 405, 30, 210);
+        ctx.fillRect(755, 245, 30, 372);
+
+        ctx.fillStyle = "green";
+        ctx.lineWidth = 3;
+        ctx.fillRect(905, 457, 150, 160);
+        ctx.strokeRect(905, 457, 150, 160);
+        ctx.lineWidth = 5;
+        ctx.fillRect(897, 377, 166, 80);
+        ctx.strokeRect(897, 377, 166, 80);
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(1027, 457, 20, 160);
+        ctx.fillRect(1035, 377, 20, 80);
+        ctx.fillRect(1007, 457, 5, 160);
+        ctx.fillRect(1009, 377, 5, 80);
+        ctx.fillStyle = "#50dc5e";
+        ctx.fillRect(937, 459, 15, 156);
+        ctx.fillRect(927, 459, 5, 156);
+        ctx.fillRect(962, 459, 5, 156);
+        ctx.fillRect(935, 379, 15, 75);
+        ctx.fillRect(925, 379, 5, 75);
+        ctx.fillRect(960, 379, 5, 75);
+        ctx.fillRect(1000, 459, 7, 156);
+        ctx.fillRect(1003, 379, 5, 75);
+
+        drawBush(140, 570);
+        drawBush(142, 597);
+        drawBush(158, 597);
+        drawBush(160, 570);
+        drawBush(129, 597);
+        drawBush(171, 597);
+        drawBush(151, 549);
+
+        drawBox(115, 290);
+
+        drawBox(275, 90);
+        drawBox(355, 90);
+
+        drawBox(1225, 170);
+
+        drawNails(375, 395);
+        drawNails(575, 395);
+        drawNails(375, 595);
+        drawNails(575, 595);
+
+        drawNails(1165, 395);
+        drawNails(1165, 595);
+
+        drawNails(535, 235);
+        drawNails(735, 235);
+        drawNails(735, 595);
+
+        drawLine(70, 650);
+
+        function drawLine(x, y){
+            ctx.lineWidth = 7;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x+45, y+40);
+            for(i = 0; i<1280; i++){
+                x = x+30;
+                ctx.moveTo(x, y);
+                ctx.lineTo(x+45, y+40);
+            }
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function drawBush(x, y) {
+            ctx.fillStyle = "green";
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawBox(x, y){
+            ctx.lineWidth = 5;
+            ctx.fillStyle = "#fe915f";
+            ctx.fillRect(x, y, 80, 80);
+            ctx.strokeStyle = "black";
+            ctx.strokeRect(x, y, 80, 80);
+            ctx.fillStyle = "black";
+            ctx.fillRect(x+5, y+5, 7, 7);
+            ctx.fillRect(x+65, y+5, 7, 7);
+            ctx.fillRect(x+5, y+65, 7, 7);
+            ctx.fillRect(x+65, y+65, 7, 7);
+        }
+
+        function drawNails(x, y){
+            ctx.fillStyle = "lightgray";
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.stroke();
+        }
+
+    </script>
+</body>
+</html>

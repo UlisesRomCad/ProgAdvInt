@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonic</title>
+    <style>
+        canvas{
+            background-color: blue;
+        }
+
+        body{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="600" height="500" id="myCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = "#c06000";
+        ctx.fillRect(0, 400, 600, 100);
+        ctx.fillStyle = "#006000";
+        ctx.fillRect(0, 380, 600, 20);
+        ctx.fillStyle = "#40a000";
+        ctx.fillRect(0, 360, 600, 20);
+        ctx.fillStyle = "#80e000";
+        ctx.fillRect(0, 340, 600, 20);
+
+        drawSquare(0, 400);
+        drawSquare(25, 425);
+        drawSquare(0, 450);
+        drawSquare(25, 475);
+
+        drawRing(100, 280);
+        drawRing(200, 280);
+        drawRing(300, 280);
+
+        ctx.fillStyle = "#804000";
+        ctx.fillRect(450, 160, 10, 180);
+        ctx.beginPath();
+        ctx.fillStyle = "#80e000";
+        ctx.arc(455, 155, 10, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.moveTo(400, 180);
+        ctx.lineTo(455, 160);
+        ctx.lineTo(455, 140);
+        ctx.moveTo(400, 120);
+        ctx.lineTo(455, 160);
+        ctx.lineTo(455, 140);
+        ctx.moveTo(500, 180);
+        ctx.lineTo(455, 160);
+        ctx.lineTo(455, 140);
+        ctx.moveTo(500, 120);
+        ctx.lineTo(455, 160);
+        ctx.lineTo(455, 140);
+        ctx.fill();
+        ctx.moveTo(455, 100);
+        ctx.lineTo(445, 160);
+        ctx.lineTo(465, 160);
+        ctx.fill();
+        ctx.closePath();
+        
+
+        function drawRing(x,y){
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.strokeStyle = "yellow";
+            ctx.arc(x, y, 30, 0, 2*Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function drawSquare(x, y){
+            ctx.fillStyle = "#602000";
+            ctx.fillRect(x, y, 25, 25);
+            for(i = 0; i<96; i++){
+                x = x + 50;
+                ctx.fillRect(x, y, 25, 25);
+            }
+        }
+    </script>
+</body>
+</html>

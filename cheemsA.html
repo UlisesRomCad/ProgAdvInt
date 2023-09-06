@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+
+        canvas{
+            background-color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <center>
+      <canvas width="500" height="500" id="myCanvas"></canvas>
+    </center>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+
+        //Cuerpo
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(173, 122, 68)";
+        ctx.arc(250,240, 50,Math.PI,2*Math.PI);
+        ctx.arc(225, 210, 50, 2.5, 2*Math.PI);        
+
+
+        var grd1 = ctx.createLinearGradient(183, 240, 233, 240);
+        grd1.addColorStop(0, 'rgb(219, 197, 173)');
+        grd1.addColorStop(0.55, 'rgb(173, 122, 68)');
+        grd1.addColorStop(1, 'rgb(173, 122, 68)');
+        ctx.fillStyle = grd1;
+        ctx.arc(233,240, 50,Math.PI,2*Math.PI);
+
+        var grd2 = ctx.createLinearGradient(192, 235, 242, 235);
+        grd2.addColorStop(0, 'rgb(219, 197, 173)');
+        grd2.addColorStop(0.55, 'rgb(173, 122, 68)');
+        grd2.addColorStop(1, 'rgb(173, 122, 68)');
+        ctx.fillStyle = grd2;
+        ctx.arc(242,235, 50,Math.PI,2*Math.PI);
+    
+        //ctx.arc(245, 172, 10, 0, 2*Math.PI);
+
+        ctx.fill();
+
+        ctx.fillStyle = ctx.createLinearGradient(184, 240, 299, 240);
+        ctx.fillStyle.addColorStop(0, 'rgb(219, 197, 173)');
+        ctx.fillStyle.addColorStop(0.55, 'rgb(173, 122, 68)');
+        ctx.fillStyle.addColorStop(1, 'rgb(173, 122, 68)');
+        ctx.fillRect(184,240, 115,100);
+
+
+        //Ojos
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.arc(178, 198, 3, 0,2*Math.PI);
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.moveTo(210, 201);
+        ctx.lineTo(213, 196);
+
+        ctx.moveTo(219, 201);
+        ctx.lineTo(222, 196);
+
+        ctx.moveTo(213, 196);
+        ctx.lineTo(222, 196);
+
+        ctx.closePath();
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.moveTo(210, 201);
+        ctx.lineTo(213, 196);
+        ctx.lineTo(222, 196);
+        ctx.lineTo(219, 201);
+
+        ctx.closePath();
+        ctx.fill();
+
+        //Oreja Izquierda
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(173, 122, 68)";
+        ctx.arc(274,289, 55, 5.18, 1.1);
+        ctx.moveTo(187, 177);
+        ctx.lineTo(198, 170);
+        ctx.lineTo(195, 155);
+        ctx.fill();
+        ctx.closePath();
+        
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.arc(176, 210, 7, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.arc(182, 210, 10, 0.4, Math.PI);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "#4a2f12";
+        ctx.arc(245, 176, 8, 4,1);
+        ctx.stroke();
+        ctx.closePath();
+
+
+    </script>
+</body>
+</html>
