@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tetris</title>
     <style>
         canvas{
             background-color: black;
@@ -21,10 +21,59 @@
     </style>
 </head>
 <body>
-    <canvas width="700" height="830" id="myCanvas"></canvas>
+    <canvas width="950" height="830" id="myCanvas"></canvas>
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext('2d');
+
+        var score = 0;
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(5, 5, 645, 820);
+
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "#62789c"
+        ctx.strokeRect(0, 0, 950, 830);
+        ctx.fillStyle = "#62789c"
+        ctx.fillRect(650, 0, 300, 830);
+        ctx.fillStyle = "black";
+        ctx.fillRect(670, 100, 260, 160);
+        ctx.strokeStyle = "#354a6e";
+        ctx.strokeRect(670, 100, 260, 160);
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(670, 430, 260, 70);
+        ctx.strokeStyle = "#354a6e";
+        ctx.strokeRect(670, 430, 260, 70);
+
+        ctx.font = "40px Arial";
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "#30ced1"
+        ctx.strokeText("Siguiente;", 712, 72);
+        ctx.fillText("Siguiente:", 710, 70);
+        ctx.strokeText("Puntuación:", 702, 400);
+        ctx.fillText("Puntuación:", 700, 398);
+        ctx.font= "30px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText(""+score+"", 700, 470);
+
+        drawCells(6,6);
+
+        function drawCells(x, y){
+            var dif = 0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#262626";
+            for(i = 0; i<210; i++){
+                ctx.strokeRect(x, y, 64.25, 64.25);
+                x = x + 64.25;
+                dif = dif + 1;
+                if(dif == 10){
+                    x = 6;
+                    dif = 0;
+                    y = y + 64.25;
+                }
+            }
+        }
 
         
     </script>
