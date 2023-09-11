@@ -15,7 +15,7 @@
         }
 
         body{
-            background-color: darkslategrey;
+            background-color: rgb(18, 18, 18);
         }
 
     </style>
@@ -28,8 +28,18 @@
 
         var score = 0;
 
-        ctx.fillStyle = "black";
-        ctx.fillRect(5, 5, 645, 820);
+        window.requestAnimationFrame = (function () {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    function (callback) {
+                        window.setTimeout(callback, 17);
+                    };
+            }());
+            
+
+        /*ctx.fillStyle = "#262626";*/
+
 
         ctx.lineWidth = 10;
         ctx.strokeStyle = "#62789c"
@@ -37,33 +47,90 @@
         ctx.fillStyle = "#62789c"
         ctx.fillRect(650, 0, 300, 830);
         ctx.fillStyle = "black";
-        ctx.fillRect(670, 100, 260, 160);
+        ctx.fillRect(670, 300, 260, 160);
         ctx.strokeStyle = "#354a6e";
-        ctx.strokeRect(670, 100, 260, 160);
+        ctx.strokeRect(670, 300, 260, 160);
 
         ctx.fillStyle = "black";
-        ctx.fillRect(670, 430, 260, 70);
+        ctx.fillRect(670, 630, 260, 70);
         ctx.strokeStyle = "#354a6e";
-        ctx.strokeRect(670, 430, 260, 70);
+        ctx.strokeRect(670, 630, 260, 70);
 
         ctx.font = "40px Arial";
         ctx.fillStyle = "white";
-        ctx.strokeStyle = "#30ced1"
-        ctx.strokeText("Siguiente;", 712, 72);
-        ctx.fillText("Siguiente:", 710, 70);
-        ctx.strokeText("Puntuación:", 702, 400);
-        ctx.fillText("Puntuación:", 700, 398);
+        ctx.strokeStyle = "#30ced1";
+        ctx.strokeText("Siguiente;", 712, 272);
+        ctx.fillText("Siguiente:", 710, 270);
+        ctx.strokeText("Puntuación:", 702, 600);
+        ctx.fillText("Puntuación:", 700, 598);
         ctx.font= "30px Arial";
         ctx.fillStyle = "white";
-        ctx.fillText(""+score+"", 700, 470);
+        ctx.fillText(""+score+"", 700, 670);
 
-        drawCells(6,6);
+        var img = new Image();
+        img.src="tetrisLogo.png";
+        img.onload = function(){
+            ctx.drawImage(img, 660, 10, 280, 200);
+        }
+
+        var map =   [0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        var tetris = [
+            [[1, 1, 1, 1]], // I
+            [[1, 1], [1, 1]], // O
+            [[1, 1, 1], [0, 1, 0]], // T
+            [[1, 1, 1], [1, 0, 0]], // L
+            [[1, 1, 1], [0, 0, 1]], // J
+            [[1, 1, 0], [0, 1, 1]], // S
+            [[0, 1, 1], [1, 1, 0]]  // Z
+        ]; 
+        
+
+        function drawTetris(tetris, x, y, color){
+            ctx.fillStyle = color;
+            for(var file = 0; file<tetris.length; file++){
+                for(var column = 0; column<tetris[file].lenght; column++){
+                    if(tetris[file][column]){
+                        ctx.fillRect();
+                    }
+                }
+            }
+        } 
+
+        function syncMap(mapF, x, y){
+            for(i = 0; i<120; i++){
+
+            }
+        }
+
+        function checkFiles(){
+
+        }
+
+        function checkLoseCondition(y){
+
+        }
+
+        function changeDifficulty(score){
+
+        }
 
         function drawCells(x, y){
             var dif = 0;
             ctx.lineWidth = 2;
-            ctx.strokeStyle = "#262626";
-            for(i = 0; i<210; i++){
+            ctx.strokeStyle = "#454444";
+            for(i = 0; i<120; i++){
                 ctx.strokeRect(x, y, 64.25, 64.25);
                 x = x + 64.25;
                 dif = dif + 1;
@@ -75,7 +142,45 @@
             }
         }
 
-        
+        const squareSize = 64.25;
+        let squareX = 6;
+        let squareY = 6;
+
+        function drawSquare() {
+        ctx.clearRect(6, 6, 645, 773);
+        ctx.fillStyle = "blue";
+        ctx.fillRect(squareX, squareY, squareSize, squareSize);
+        }
+
+        drawSquare();
+
+        document.addEventListener("keydown", (e) => {
+        switch (e.keyCode) {
+            case 37:
+            squareX -= 64.25;
+            break;
+            case 39:
+            squareX += 64.25;
+            break;
+            case 38:
+            squareY -= 64.25;
+            break;
+            case 40:
+            squareY += 64.25;
+            break;
+        }
+
+        squareX = Math.max(6, Math.min(650 - squareSize, squareX));
+        squareY = Math.max(6, Math.min(778 - squareSize, squareY));
+
+        drawSquare();
+        });
+
+        ctx.fillStyle = "white";
+        ctx.fillRect(5, 5, 645, 773);
+        ctx.fillStyle = "#62789c";
+        ctx.fillRect(5, 778, 645, 47);
+        drawCells(6,6);
     </script>
 </body>
 </html>
