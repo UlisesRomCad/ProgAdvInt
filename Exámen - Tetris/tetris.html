@@ -26,6 +26,9 @@
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext('2d');
 
+        let musica = new Audio();
+        let pause = false;
+        musica.src= "tetrisTheme.mp3";
         var score = 0;
 
         window.requestAnimationFrame = (function () {
@@ -148,6 +151,11 @@
 
         function drawSquare() {
         ctx.clearRect(6, 6, 645, 773);
+        ctx.fillStyle = "#262626";
+        ctx.fillRect(5, 5, 645, 773);
+
+        drawCells(6,6);
+    
         ctx.fillStyle = "blue";
         ctx.fillRect(squareX, squareY, squareSize, squareSize);
         }
@@ -155,20 +163,38 @@
         drawSquare();
 
         document.addEventListener("keydown", (e) => {
-        switch (e.keyCode) {
-            case 37:
-            squareX -= 64.25;
-            break;
-            case 39:
-            squareX += 64.25;
-            break;
-            case 38:
-            squareY -= 64.25;
-            break;
-            case 40:
-            squareY += 64.25;
-            break;
-        }
+            if (!pause) {
+                musica.play();
+            switch (e.keyCode) {
+                case 37:
+                squareX -= 64.25;
+                break;
+                case 39:
+                squareX += 64.25;
+                break;
+                case 38:
+                squareY -= 64.25;
+                break;
+                case 40:
+                squareY += 64.25;
+                break;
+               }
+            }
+
+            switch(e.keyCode){  
+                case 32:
+                    pause = !pause;
+                    musica.pause();
+                break;  
+            }
+
+            if (pause){
+                ctx.fillStyle = "rgba(88 ,219,197 ,0.5)";
+                ctx.fillRect(6,6,645,773);
+                ctx.font = "40px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText("P A U S E", 306, 406);
+            }
 
         squareX = Math.max(6, Math.min(650 - squareSize, squareX));
         squareY = Math.max(6, Math.min(778 - squareSize, squareY));
@@ -176,8 +202,6 @@
         drawSquare();
         });
 
-        ctx.fillStyle = "white";
-        ctx.fillRect(5, 5, 645, 773);
         ctx.fillStyle = "#62789c";
         ctx.fillRect(5, 778, 645, 47);
         drawCells(6,6);
