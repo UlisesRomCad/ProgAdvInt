@@ -31,16 +31,6 @@
         musica.src= "tetrisTheme.mp3";
         var score = 0;
 
-        window.requestAnimationFrame = (function () {
-                return window.requestAnimationFrame ||
-                    window.webkitRequestAnimationFrame ||
-                    window.mozRequestAnimationFrame ||
-                    function (callback) {
-                        window.setTimeout(callback, 17);
-                    };
-            }());
-            
-
         /*ctx.fillStyle = "#262626";*/
 
 
@@ -76,44 +66,65 @@
             ctx.drawImage(img, 660, 10, 280, 200);
         }
 
-        var map =   [0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var map = [];
+        for (var i = 0; i < 20; i++) {
+            map[i] = [];
+            for (var j = 0; j < 10; j++) {
+                map[i][j] = 0;
+            }
+        }
 
         var tetris = [
-            [[1, 1, 1, 1]], // I
-            [[1, 1], [1, 1]], // O
-            [[1, 1, 1], [0, 1, 0]], // T
-            [[1, 1, 1], [1, 0, 0]], // L
-            [[1, 1, 1], [0, 0, 1]], // J
-            [[1, 1, 0], [0, 1, 1]], // S
-            [[0, 1, 1], [1, 1, 0]]  // Z
-        ]; 
+        // Pieza I
+        [
+            [0, 0, 0, 0],
+            [1, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ],
+        // Pieza O
+        [
+            [1, 1],
+            [1, 1]
+        ],
+        // Pieza T
+        [
+            [0, 1, 0],
+            [1, 1, 1],
+            [0, 0, 0]
+        ],
+        // Pieza L
+        [
+            [0, 0, 1],
+            [1, 1, 1],
+            [0, 0, 0]
+        ],
+        // Pieza J
+        [
+            [1, 0, 0],
+            [1, 1, 1],
+            [0, 0, 0]
+        ],
+        // Pieza S
+        [
+            [0, 1, 1],
+            [1, 1, 0],
+            [0, 0, 0]
+        ],
+        // Pieza Z
+        [
+            [1, 1, 0],
+            [0, 1, 1],
+            [0, 0, 0]
+        ]
+    ];
         
 
-        function drawTetris(tetris, x, y, color){
-            ctx.fillStyle = color;
-            for(var file = 0; file<tetris.length; file++){
-                for(var column = 0; column<tetris[file].lenght; column++){
-                    if(tetris[file][column]){
-                        ctx.fillRect();
-                    }
-                }
-            }
-        } 
-
         function syncMap(mapF, x, y){
-            for(i = 0; i<120; i++){
-
+            for(i = 0; i<mapF.length; i = i++){
+                for(j = 0; j<mapF[i].length; j++){
+                    
+                }
             }
         }
 
@@ -129,18 +140,26 @@
 
         }
 
-        function drawCells(x, y){
+        function drawCells(x, y) {
             var dif = 0;
             ctx.lineWidth = 2;
             ctx.strokeStyle = "#454444";
-            for(i = 0; i<120; i++){
-                ctx.strokeRect(x, y, 64.25, 64.25);
-                x = x + 64.25;
-                dif = dif + 1;
-                if(dif == 10){
-                    x = 6;
-                    dif = 0;
-                    y = y + 64.25;
+            for (i = 0; i < 20; i++) { // Cambia 120 a 20 para las filas
+                for (j = 0; j < 10; j++) { // Cambia 10 a 20 para las columnas
+                    if (map[i][j] === 1) {
+                        ctx.fillStyle = "blue"; // Color de las celdas ocupadas
+                    } else {
+                        ctx.fillStyle = "#262626"; // Color de las celdas vacías
+                    }
+                    ctx.fillRect(x, y, 64.25, 64.25);
+                    ctx.strokeRect(x, y, 64.25, 64.25);
+                    x = x + 64.25;
+                    dif = dif + 1;
+                    if (dif == 10) {
+                        x = 6;
+                        dif = 0;
+                        y = y + 64.25;
+                    }
                 }
             }
         }
@@ -149,33 +168,41 @@
         let squareX = 6;
         let squareY = 6;
 
-        function drawSquare() {
-        ctx.clearRect(6, 6, 645, 773);
-        ctx.fillStyle = "#262626";
-        ctx.fillRect(5, 5, 645, 773);
-
-        drawCells(6,6);
-    
-        ctx.fillStyle = "blue";
-        ctx.fillRect(squareX, squareY, squareSize, squareSize);
+        function drawPiece(x, y, piece) {
+            ctx.fillStyle = "blue"; // Color de las celdas ocupadas por la pieza
+            for (let i = 0; i < piece.length; i++) {
+                for (let j = 0; j < piece[i].length; j++) {
+                    if (piece[i][j] === 1) {
+                        ctx.fillRect(x + j * squareSize, y + i * squareSize, squareSize, squareSize);
+                    }
+                }
+            }
         }
 
-        drawSquare();
+        function drawSquare() {
+            ctx.clearRect(6, 6, 645, 773);
+            ctx.fillStyle = "#262626";
+            ctx.fillRect(5, 5, 645, 773);
+        
+            drawCells(6, 6);
+        
+            // Dibuja la pieza actual llamando a drawPiece
+            drawPiece(squareX, squareY, piezaT);
+        }
 
+        var genTetris = Math.floor((Math.random() * 7))
+        var piezaT = tetris[genTetris];
         document.addEventListener("keydown", (e) => {
             if (!pause) {
                 musica.play();
             switch (e.keyCode) {
-                case 37:
+                case 65:
                 squareX -= 64.25;
                 break;
-                case 39:
+                case 68:
                 squareX += 64.25;
                 break;
-                case 38:
-                squareY -= 64.25;
-                break;
-                case 40:
+                case 83:
                 squareY += 64.25;
                 break;
                }
@@ -188,23 +215,40 @@
                 break;  
             }
 
-            if (pause){
-                ctx.fillStyle = "rgba(88 ,219,197 ,0.5)";
-                ctx.fillRect(6,6,645,773);
-                ctx.font = "40px Georgia";
-                ctx.fillStyle = "black";
-                ctx.fillText("P A U S E", 306, 406);
-            }
-
         squareX = Math.max(6, Math.min(650 - squareSize, squareX));
         squareY = Math.max(6, Math.min(778 - squareSize, squareY));
 
-        drawSquare();
+        //drawSquare();
         });
+
+        function init()
+        {
+            window.requestAnimationFrame(init);
+            update();
+        }
+
+        function update(){
+            squareY+=2;
+            if (squareY > 713.75){
+                squareY = 713.75
+            }
+            drawSquare();
+        }
 
         ctx.fillStyle = "#62789c";
         ctx.fillRect(5, 778, 645, 47);
         drawCells(6,6);
+
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
+        }());
+
+        init();
     </script>
 </body>
 </html>
